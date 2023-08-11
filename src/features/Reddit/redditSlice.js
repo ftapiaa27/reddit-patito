@@ -4,7 +4,7 @@ import { redditURL } from "../../reddit api/reddit";
 export const loadPostsForSubreddit = createAsyncThunk(
     'posts/loadPostsForSubreddit',
     async (subreddit) => {
-        const data = await fetch(`${redditURL}r/${subreddit}/.json`);
+        const data = await fetch(`https://www.reddit.com/r/${subreddit}/.json`);
         const json = await data.json();
         return json.data.children.map(child => child.data);
         /** Note:
@@ -39,45 +39,52 @@ export const loadSearchResults = createAsyncThunk(
     }
 )
 
-export const reddit = createSlice({
+export const redditSlice = createSlice({
     name: "reddit",
     initialState: {
-        posts: {},
+        posts: [],
         searchTerm: "",
         currentSubReddit: "Damnthatsinteresting",
         isLoading: false,
         hasError: false
-    },
-    reducers: {},
+    },  
     extraReducers: (builder) => {
         builder
             .addCase(loadPostsForSubreddit.pending, (state) => {
-                isLoading = true;
-                hasError = false;
+                state.isLoading = true;
+                state.hasError = false;
             })
             .addCase(loadPostsForSubreddit.fulfilled, (state, action) => {
-                isLoading = false;
-                hasError = false;
+                state.isLoading = false;
+                state.hasError = false;
                 state.posts = action.payload;
             })
-            .addCase(loadPostsForSubreddit.failed, (state) => {
-                isLoading = false;
-                hasError = true;
+            .addCase(loadPostsForSubreddit.rejected, (state) => {
+                state.isLoading = false;
+                state.hasError = true;
+                // state.posts = {};
             })
             .addCase(loadSearchResults.pending, (state) => {
-                isLoading = true;
-                hasError = false;
+                state.isLoading = true;
+                state.hasError = false;
             })
             .addCase(loadSearchResults.fulfilled, (state, action) => {
-                isLoading = false;
-                hasError = false;
+                state.isLoading = false;
+                state.hasError = false;
                 state.posts = action.payload;
                 state.searchTerm = "";
                 state.currentSubReddit = "";
             })
-            .addCase(loadSearchResults.failed, (state) => {
-                isLoading = false;
-                hasError = true;
+            .addCase(loadSearchResults.rejected, (state) => {
+                state.isLoading = false;
+                state.hasError = true;
             })
     }
 });
+
+export const selectPosts = (state) => state.reddit.posts;
+export const isRedditLoading = (state) => state.reddit.isLoading;
+export const hasErrorState = (state) => state.reddit.hasError;
+export const selectRedditSearchTerm = (state) => state.reddit.searchTerm;
+export const selectCurrentSubreddit = (state) => state.reddit.currentSubReddit;
+export default redditSlice.reducer;
