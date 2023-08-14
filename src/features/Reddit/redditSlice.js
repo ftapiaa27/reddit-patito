@@ -48,6 +48,14 @@ export const redditSlice = createSlice({
         isLoading: false,
         hasError: false
     },  
+    reducers: {
+        setSearchTerm: (state, action) => {
+            state.reddit.searchTerm = action.payload;
+        },
+        setCurrentSubreddit: (state, action) => {
+            state.reddit.currentSubReddit = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(loadPostsForSubreddit.pending, (state) => {
@@ -82,6 +90,7 @@ export const redditSlice = createSlice({
     }
 });
 
+export const { setSearchTerm, setCurrentSubreddit } = redditSlice.actions;
 export const selectPosts = (state) => state.reddit.posts;
 export const isRedditLoading = (state) => state.reddit.isLoading;
 export const hasErrorState = (state) => state.reddit.hasError;

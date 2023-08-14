@@ -10,10 +10,8 @@ const Reddit = () => {
     const hasError = useSelector(hasErrorState);
     
     useEffect(() => {
-        // console.log(currentSubReddit);
         dispatch(loadPostsForSubreddit(currentSubReddit));
     }, [currentSubReddit])
-    // console.log(posts)
 
     if (isLoading) {
         return(<h1>LOADING...</h1>)
@@ -25,7 +23,6 @@ const Reddit = () => {
     return(
         <div>
             {posts ? <>{posts.map(post => <p>{post.title}</p>)}</> : <p>No posts</p>}
-            {/* <p>{currentSubReddit}</p> */}
         </div>
     );
 }
