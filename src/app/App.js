@@ -5,6 +5,7 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
+import Header from '../features/Header/Header.js';
 import Reddit from '../features/Reddit/Reddit.js';
 
 function App() {
@@ -14,9 +15,10 @@ function App() {
     //     <Route path='/' element={<h1>Hello There!</h1>} />
     //   </Routes>
     // </BrowserRouter>
-    <>
+    <div className='app'>
+      <Header />
       <Reddit />
-    </>
+    </div>
   );
 }
 

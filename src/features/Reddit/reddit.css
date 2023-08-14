@@ -1,0 +1,10 @@
+.reddit {
+    grid-area: main;
+    margin: 0 3rem;
+    display: inline-flex;
+    flex-flow: column;
+}
+
+.reddit h1 {
+    align-self: center;
+}

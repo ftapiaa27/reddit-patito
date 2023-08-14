@@ -2,6 +2,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectPosts, isRedditLoading, selectCurrentSubreddit, loadPostsForSubreddit, hasErrorState } from "./redditSlice";
 import { useEffect } from "react";
+import PostPrev from "../PostPreview/PostPrev";
+import "./reddit.css";
+
 const Reddit = () => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts);
@@ -21,8 +24,9 @@ const Reddit = () => {
     }
 
     return(
-        <div>
-            {posts ? <>{posts.map(post => <p>{post.title}</p>)}</> : <p>No posts</p>}
+        <div className="reddit">
+            <h1>r/{currentSubReddit}</h1>
+            {posts ? <>{posts.map(post => <PostPrev  post={post} />)}</> : <p>No posts</p>}
         </div>
     );
 }
