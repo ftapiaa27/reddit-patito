@@ -8,7 +8,7 @@ const PostPrev = ( {post} ) => {
     useEffect(() => {
         const currentDate = new Date();
         const currentDateUTC = Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())/1000;
-        const diffHrs = (currentDateUTC - post.created_utc)/(60*60) + 7;
+        const diffHrs = (currentDateUTC - post.created_utc)/(60*60) + 29;
         if (diffHrs < 24) {
             setPostAge(`${Math.floor(diffHrs)} hr. ago`)
         } else {
@@ -25,8 +25,18 @@ const PostPrev = ( {post} ) => {
                     <source src={post.media.reddit_video.fallback_url}/>
                 </video>
             );
+        } else if (post.secure_media) {
+            setMedia(
+                <video controls>
+                    <source src={post.secure_media.reddit_video.fallback_url}/>
+                </video>
+            );
+        } else if (post.preview) {
+            setMedia(
+                <img src={post.preview.images[0].source.url}/>
+            );
         }
-    });
+    },[]);
 
     return (
         <a className="postPrev">

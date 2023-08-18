@@ -1,0 +1,22 @@
+.subreddit {
+    width: inherit;
+    display: inline-flex;
+    align-items: center;
+    margin: 0.3rem 0;
+    background-color: rgb(212, 225, 240);
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.subreddit:hover {
+    background-color: rgb(193, 217, 245);
+}
+
+.subreddit img {
+    width: 2rem;
+    margin-right: 0.5rem;
+    padding: 3px;
+    border: solid 2px rgb(0, 0, 77);
+    border-radius: 1rem;
+}

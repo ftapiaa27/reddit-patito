@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { redditURL } from "../../reddit api/reddit";
 
 export const loadPostsForSubreddit = createAsyncThunk(
     'posts/loadPostsForSubreddit',
@@ -23,7 +22,7 @@ export const loadPostsForSubreddit = createAsyncThunk(
 export const loadSearchResults = createAsyncThunk(
     'search/loadResults',
     async (searchTerm) => {
-        const data = await fetch(`${redditURL}search.json?q=${searchTerm}`);
+        const data = await fetch(`https://www.reddit.com/search.json?q=${searchTerm}`);
         const json = await data.json();
         return json.data.children.map(child => child.data);
         /** Note:
@@ -50,10 +49,10 @@ export const redditSlice = createSlice({
     },  
     reducers: {
         setSearchTerm: (state, action) => {
-            state.reddit.searchTerm = action.payload;
+            state.searchTerm = action.payload;
         },
         setCurrentSubreddit: (state, action) => {
-            state.reddit.currentSubReddit = action.payload;
+            state.currentSubReddit = action.payload;
         }
     },
     extraReducers: (builder) => {

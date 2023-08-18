@@ -16,7 +16,7 @@ const Header = () => {
     const handleSubmit = e => {
         e.preventDefault();
         alert(searchTrm);
-        // dispatch(setSearchTerm(searchTrm));
+        dispatch(setSearchTerm(searchTrm));
         setSearchTrm("");
     }
 

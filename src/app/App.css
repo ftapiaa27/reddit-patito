@@ -39,8 +39,8 @@
 
 .app {
   display: grid;
-  grid-template-areas:
+  grid-template-areas: 
     'header header header header'
-    'main main main right';
-  gap: 1rem;
+    'main main main side';
+    gap: 1rem;
 }

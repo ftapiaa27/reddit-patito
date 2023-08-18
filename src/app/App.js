@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Header from '../features/Header/Header.js';
 import Reddit from '../features/Reddit/Reddit.js';
+import Subreddits from '../features/Subreddits/Subreddits';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
     <div className='app'>
       <Header />
       <Reddit />
+      <Subreddits />
     </div>
   );
 }
