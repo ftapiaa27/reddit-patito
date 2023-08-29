@@ -38,9 +38,9 @@
 }
 
 .app {
-  display: grid;
+  /* display: grid;
   grid-template-areas: 
     'header header header header'
     'main main main side';
-    gap: 1rem;
+    gap: 1rem; */
 }

@@ -1,41 +1,60 @@
 // import './Reddit.css';
 import { useSelector, useDispatch } from "react-redux";
-import { selectPosts, isRedditLoading, selectCurrentSubreddit, loadPostsForSubreddit, hasErrorState, loadSearchResults, selectRedditSearchTerm } from "./redditSlice";
-import { useEffect } from "react";
+import {
+  selectPosts,
+  isRedditLoading,
+  selectCurrentSubreddit,
+  loadPostsForSubreddit,
+  hasErrorState,
+  loadSearchResults,
+  selectRedditSearchTerm,
+} from "./redditSlice";
+import { useEffect, useState } from "react";
 import PostPrev from "../PostPreview/PostPrev";
 import "./reddit.css";
+import { Outlet } from "react-router";
 
 const Reddit = () => {
-    const dispatch = useDispatch();
-    const posts = useSelector(selectPosts);
-    const currentSubReddit = useSelector(selectCurrentSubreddit);
-    const currentSearchTerm = useSelector(selectRedditSearchTerm);
-    const isLoading = useSelector(isRedditLoading);
-    const hasError = useSelector(hasErrorState);
-    
-    useEffect(() => {
-        dispatch(loadPostsForSubreddit(currentSubReddit));
-    }, [currentSubReddit, dispatch])
+  const dispatch = useDispatch();
+  const posts = useSelector(selectPosts);
+  const currentSubReddit = useSelector(selectCurrentSubreddit);
+  const currentSearchTerm = useSelector(selectRedditSearchTerm);
+  const isLoading = useSelector(isRedditLoading);
+  const hasError = useSelector(hasErrorState);
+  const [title, setTitle] = useState("Reddit Patito");
 
-    useEffect(() => {
-        if (currentSearchTerm) {
-            dispatch(loadSearchResults(currentSearchTerm));
-        }
-    }, [currentSearchTerm, dispatch])
+  useEffect(() => {
+    dispatch(loadPostsForSubreddit(currentSubReddit));
+    setTitle(`/r${currentSubReddit}`);
+  }, [currentSubReddit, dispatch]);
 
-    if (isLoading) {
-        return(<h1>LOADING...</h1>)
+  useEffect(() => {
+    if (currentSearchTerm) {
+      dispatch(loadSearchResults(currentSearchTerm));
+      setTitle(`${currentSearchTerm}`);
     }
-    if (hasError) {
-        return(<h1>FATAL ERROR...</h1>)
-    }
+  }, [currentSearchTerm, dispatch]);
 
-    return(
-        <div className="reddit">
-            <h1>r/{currentSubReddit}</h1>
-            {posts ? posts.map(post => <PostPrev  post={post} />) : <p>No posts</p>}
-        </div>
-    );
-}
+  if (isLoading) {
+    return <h1>LOADING...</h1>;
+  }
+  if (hasError) {
+    return <h1>FATAL ERROR...</h1>;
+  }
+
+  return (
+    <div className="content">
+      <div className="reddit">
+        <h1>{title}</h1>
+        {posts ? (
+          posts.map((post) => <PostPrev post={post} />)
+        ) : (
+          <p>No posts</p>
+        )}
+      </div>
+      <Outlet />
+    </div>
+  );
+};
 
 export default Reddit;

@@ -1,5 +1,6 @@
 .subreddits {
-    grid-area: side;
+    /* grid-area: side; */
+    grid-column: 2;
     display: inline-flex;
     flex-flow: column;
     width: 15rem;
