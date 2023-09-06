@@ -8,21 +8,21 @@ import {
 } from "./postSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import PostPrev from "../PostPreview/PostPrev";
+import PostView from "../PostView/PostView";
+import "./post.css";
+import Comment from "../Comment/Comment";
 
 const Post = () => {
   const dispatch = useDispatch();
-  const postData = useSelector(selectPostData);
+  const data = useSelector(selectPostData);
   const isLoading = useSelector(isPostLoading);
   const hasError = useSelector(postHasError);
   const permalink = useSelector(postPermalink);
-  const [postInfo, setPostInfo] = useState(null);
-  const [commentsInfo, setCommentsInfo] = useState(null);
 
   useEffect(() => {
     dispatch(loadPost(permalink));
-    // setPostInfo(postData[0][0].data);
-    // setCommentsInfo(postData[1]);
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <h1>LOADING...</h1>;
@@ -30,11 +30,14 @@ const Post = () => {
   if (hasError) {
     return <h1>FATAL ERROR...</h1>;
   }
-  return (
-    <div className="post">
-      <h1>/</h1>
-    </div>
-  );
+  if (!isLoading && data) {
+    return (
+      <div className="post">
+        <PostView post={data.postData}/>
+        {data.commentsData.map(comment => <Comment comment={comment} />)}
+      </div>
+    );
+  }
 };
 
 export default Post;

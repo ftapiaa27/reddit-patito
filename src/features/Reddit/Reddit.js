@@ -12,7 +12,6 @@ import {
 import { useEffect, useState } from "react";
 import PostPrev from "../PostPreview/PostPrev";
 import "./reddit.css";
-import { Outlet } from "react-router";
 
 const Reddit = () => {
   const dispatch = useDispatch();
@@ -43,7 +42,6 @@ const Reddit = () => {
   }
 
   return (
-    <div className="content">
       <div className="reddit">
         <h1>{title}</h1>
         {posts ? (
@@ -52,8 +50,6 @@ const Reddit = () => {
           <p>No posts</p>
         )}
       </div>
-      <Outlet />
-    </div>
   );
 };
 

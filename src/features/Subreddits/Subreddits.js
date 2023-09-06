@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectSubreddits, areSubredditsLoading, subredditsHasError, loadSubreddits } from "./subredditsSlice";
 import "./subreddits.css";
 import SubredditPrev from "../SubredditPrev/subredditPrev";
+import { Outlet } from "react-router";
 
 const Subreddits = () => {
     const dispatch = useDispatch();
@@ -23,10 +24,13 @@ const Subreddits = () => {
     }
 
     return (
+        <div className="content">
+        <Outlet />
         <div className="subreddits">
             <h2>Subreddits</h2>
             {subreddits ? subreddits.map(subreddit => <SubredditPrev subreddit={subreddit} />) : <p>No subbredits</p>}
         </div>
+    </div>
     );
 }
 

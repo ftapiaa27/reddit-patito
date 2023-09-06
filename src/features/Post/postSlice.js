@@ -5,8 +5,8 @@ export const loadPost = createAsyncThunk("post/loadPost", async (permalink) => {
   const data = await fetch(`https://www.reddit.com${permalink}.json`);
   const json = await data.json();
   const response = {
-    postData: json[0].data,
-    commentsData: json[1].data
+    postData: json[0].data.children[0].data,
+    commentsData: json[1].data.children.map(child => child.data)
   }
   return response;
 //   return json.map((child) => child.data.children);
@@ -17,7 +17,7 @@ export const postSlice = createSlice({
   initialState: {
     permalink: "",
     data: {},
-    isLoading: false,
+    isLoading: true,
     hasError: false
   },
   reducers: {

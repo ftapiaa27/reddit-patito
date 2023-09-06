@@ -20,18 +20,18 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Reddit />,
+          element: <Subreddits />,
           children: [
             {
               path: "/",
-              element: <Subreddits />,
+              element: <Reddit />,
             },
+            {
+              path: "post/:postid",
+              element: <Post />
+            }
           ],
         },
-        {
-          path: "post/:postid",
-          element: <Post />
-        }
       ],
     },
   ]);
